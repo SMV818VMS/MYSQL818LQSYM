@@ -1,7 +1,7 @@
 USE stephenkingbooks;
 
 DROP TABLE IF EXISTS stephenkingbooks;
-CREATE TABLE stephenkingbooks
+CREATE TABLE `stephenkingbooks`
 (
   `id`              int unsigned NOT NULL auto_increment,
   `original_title`  varchar(255) NOT NULL,
@@ -14,7 +14,9 @@ CREATE TABLE stephenkingbooks
   PRIMARY KEY     (id)
 );
 
-LOAD DATA LOCAL INFILE '../files/unprocessed_sking.csv' INTO TABLE stephenkingbooks
-FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\r\n'
-(@col1, @col2, @col3, @col4) SET `original_title`=@col1, `spanish_title`=@col2, `year`=@col4, `pages`=@col3
-IGNORE 1 ROWS;
+LOAD DATA INFILE './unprocessed_sking.csv'
+INTO TABLE `stephenkingbooks`
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+(`original_title`, `spanish_title`, @`genre`, @`pages`, @`year`)
+SET `year` = LEFT(@`year`, 4), `pages` = @`pages`;

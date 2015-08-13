@@ -14,7 +14,7 @@ CREATE TABLE `stephenkingbooks`
   PRIMARY KEY     (id)
 );
 
-LOAD DATA INFILE './unprocessed_sking.csv'
+LOAD DATA INFILE './unprocessed_sking.csv'   # The file is located in the folder /var/lib/mysql
 INTO TABLE `stephenkingbooks`
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
